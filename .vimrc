@@ -1,59 +1,31 @@
+
+""""""""""""""""""""""""""""""""""""""""
+""" VUNDLE
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
+""" install plugin to windows AND MOVE COLORSCHEME TO COLOR
+"call vundle#begin("~/vimfiles/plugin/")
+
 Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"My plugins 
 Plugin 'flazz/vim-colorschemes'
 Plugin 'tpope/vim-surround'
 Plugin 'powerman/vim-plugin-viewdoc'
 Plugin 'powerman/vim-plugin-ruscmd'
 
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+
+" see :h vundle for more details or wiki for FAQ
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"Theme
 set guifont=Monaco:h18
 colorscheme OceanicNext
-
 
 """ Просмотр документации help/man/perldoc/etc.:                <F1>, K, q 
 " Plugin: viewdoc
@@ -62,7 +34,8 @@ let g:ViewDoc_css = 'ViewDoc_help_custom'
 let g:viewdoc_copy_to_search_reg = 1
 let g:viewdoc_perldoc_format = 'ansi'
 
-" Настройки табов для Python, согласно рекоммендациям
+
+" Настройки  Python, согласно рекоммендациям
 "set tabstop=4
 "set shiftwidth=4
 "set smarttab
@@ -72,18 +45,13 @@ let g:viewdoc_perldoc_format = 'ansi'
 set autoindent
 " Подсвечиваем все что можно подсвечивать
 let python_highlight_all = 1
-" Включаем 256 цветов в терминале, мы ведь работаем из иксов?
-" Нужно во многих терминалах, например в gnome-terminal
-set t_Co=256
-
 " Перед сохранением вырезаем пробелы на концах (только в .py файлах)
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " В .py файлах включаем умные отступы после ключевых слов
-"autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
+" Common settings
 syntax on "Включить подсветку синтаксиса
-
-" set nu "Включаем нумерацию строк
 set mousehide "Спрятать курсор мыши когда набираем текст
 set mouse=a "Включить поддержку мыши
 set termencoding=utf-8 "Кодировка терминала
@@ -117,7 +85,9 @@ nnoremap <C-P> :bprev<CR>
 set visualbell t_vb=
 
 
-"""""""""""""""" -POWERMAN
+
+"""""""""""""""""""""""""
+""" POWERMAN's settings
 
 
 function! s:Mkdir(dir)
@@ -125,64 +95,19 @@ function! s:Mkdir(dir)
         call mkdir(expand(a:dir), 'p', 0700)
     endif
 endfunction
+
 " - система
+set t_Co=256  "for 256 support terminal (like windows cmd)
+
 if &term ==# 'xterm'
     set term=xterm-256color
 endif
 if &term ==# 'screen'
     set term=screen-256color
-    map  [1;5A <C-Up>
-    map! [1;5A <C-Up>
-    map  [1;5B <C-Down>
-    map! [1;5B <C-Down>
-    map  [1;5C <C-Right>
-    map! [1;5C <C-Right>
-    map  [1;5D <C-Left>
-    map! [1;5D <C-Left>
-    map  [2;5~ <C-Insert>
-    map! [2;5~ <C-Insert>
-    map  [3^   <C-Delete>
-    map! [3^   <C-Delete>
-    map  [1;5H <C-Home>
-    map! [1;5H <C-Home>
-    map  [1;5F <C-End>
-    map! [1;5F <C-End>
-    map  [5;5~ <C-PageUp>
-    map! [5;5~ <C-PageUp>
-    map  [6;5~ <C-PageDown>
-    map! [6;5~ <C-PageDown>
-    map  [1;3A <A-Up>
-    map! [1;3A <A-Up>
-    map  [1;3B <A-Down>
-    map! [1;3B <A-Down>
-    map  [1;3C <A-Right>
-    map! [1;3C <A-Right>
-    map  [1;3D <A-Left>
-    map! [1;3D <A-Left>
-    map  [1;3H <A-Home>
-    map! [1;3H <A-Home>
-    map  [1;3F <A-End>
-    map! [1;3F <A-End>
-    map  [5;3~ <A-PageUp>
-    map! [5;3~ <A-PageUp>
-    map  [6;3~ <A-PageDown>
-    map! [6;3~ <A-PageDown>
-    map  [1;2A <S-Up>
-    map! [1;2A <S-Up>
-    map  [1;2B <S-Down>
-    map! [1;2B <S-Down>
-    map  [1;2C <S-Right>
-    map! [1;2C <S-Right>
-    map  [1;2D <S-Left>
-    map! [1;2D <S-Left>
-    map  [3;2~ <S-Delete>
-    map! [3;2~ <S-Delete>
-    map  [1;2H <S-Home>
-    map! [1;2H <S-Home>
-    map  [1;2F <S-End>
-    map! [1;2F <S-End>
 endif
 set fileencodings=ucs-bom,utf-8,koi8-r,default
+
+
 " - предыдущая версия/состояние текста
 set viewdir=~/.cache/vim/view           " убираем все временные файлы из ~/.vim/
 set undofile                            " использовать persistent undo
@@ -190,19 +115,11 @@ set undodir=~/.cache/vim/undo           "
 set nobackup                            " зачем бэкап когда есть persistent undo!
 call s:Mkdir(&viewdir)
 call s:Mkdir(&undodir)
-" - табы и отступы
-"set tabstop=4                           " стандартный размер таба
-"set shiftwidth=4                        " величина отступа (indent)
-"set shiftround                          " выравнивать отступы по shiftwidth
-"set softtabstop=4                       " сдвиг при нажатии таба (вставляет и табы и пробелы)
-"set autoindent                          " сохранять текущий отступ для новых строк
-"set smartindent                         " автоматическая коррекция отступа для блоков кода
-"set copyindent                          " использовать те же символы для отступа при:
-"set preserveindent                      "   1) autoindent; 2) изменении глубины отступа
-"   ... коррекция smartindent: сохранять отступ для комментариев     
+
 set formatoptions+=roj                  " продолжать комментарий на следующей строке
 set formatoptions+=n                    " авто-перенос длинных строк внутри списков
 "set nojoinspaces                        " не вставлять 2 пробела после . при слиянии строк по J
+
 " - вывод текста
 set textwidth=74                        " граница для переформатирования и авто-переноса
 set formatoptions+=l                    " отключить авто-перенос строк которые УЖЕ длиннее textwidth
